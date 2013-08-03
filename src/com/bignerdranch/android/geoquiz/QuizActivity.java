@@ -15,6 +15,7 @@ public class QuizActivity extends Activity {
 
 	private static final String TAG = "QuizActivity";
 	private static final String KEY_INDEX = "index";
+	private static final String IS_CHEATER = "isCheater";
 	
 	private Button mTrueButton;
 	private Button mFalseButton;
@@ -106,10 +107,6 @@ public class QuizActivity extends Activity {
 			}
 		});
 		
-		if (savedInstanceState != null) {
-			mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
-		}
-		
 		mCheatButton = (Button)findViewById(R.id.cheat_button);
 		mCheatButton.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -122,6 +119,11 @@ public class QuizActivity extends Activity {
 			}
 		});
 		
+		if (savedInstanceState != null) {
+			mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+			mIsCheater = savedInstanceState.getBoolean(IS_CHEATER, false);
+		}
+		
 		updateQuestion();
 	}
 	
@@ -130,6 +132,7 @@ public class QuizActivity extends Activity {
 		super.onSaveInstanceState(savedInstanceState);
 		Log.i(TAG, "onSaveInstanceState");
 		savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+		savedInstanceState.putBoolean(IS_CHEATER, mIsCheater);
 	}
 	
 	@Override
